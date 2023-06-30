@@ -17,19 +17,23 @@ const pageScrollFromMv = () => {
         opacity: 0,
     })
         .to('.mv', {
-            height: 0,
             duration: 0.05,
             ease: 'power3.out',
         })
-        .to('.content', {
-            height: '100vh',
-            duration: 2,
-            ease: 'power3.in',
-            onComplete: () => {
-                mv.isMoving = false
-                mv.isActive = false
-            },
-        })
+        .fromTo(
+            '.content',
+            { opacity: 0, y: '100vh', height: 'auto' },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: 'ease.in',
+                onComplete: () => {
+                    mv.isMoving = false
+                    mv.isActive = false
+                },
+            }
+        )
 }
 
 const pageScrollFromContent = () => {
@@ -37,19 +41,17 @@ const pageScrollFromContent = () => {
     mv.isMoving = true
     const tl = gsap.timeline()
     tl.to('.content', {
+        y: '100vh',
+        opacity: 0,
         height: 0,
         duration: 1,
         ease: 'back.out',
     }).fromTo(
         '.mv',
-        {
-            height: '100vh',
-            opacity: 0,
-            duration: 0.05,
-        },
+        { opacity: 0, top: 0, height: '100vh' },
         {
             opacity: 1,
-            duration: 0.95,
+            duration: 1,
             ease: 'back.in',
             onComplete: () => {
                 mv.isMoving = false
@@ -104,10 +106,21 @@ const initMvContent = () => {
 
                 window.addEventListener(
                     'keydown',
-                    handleOnePageScrollKey as any
+                    handleOnePageScrollKey as never
                 )
             } else {
                 window.removeEventListener('wheel', handleWheelPageScroll)
+                window.removeEventListener('touchstart', setFirstTouchY)
+
+                window.removeEventListener(
+                    'touchmove',
+                    handleTouchMovePageScroll
+                )
+
+                window.removeEventListener(
+                    'keydown',
+                    handleOnePageScrollKey as never
+                )
             }
         })
     }
@@ -138,41 +151,33 @@ function App() {
     return (
         <>
             <div className="mv">
-                <h1 className="mv-title">Saka Tomato</h1>
+                <h1 className="mv-title">Sakamoto Tomato</h1>
                 <h3 className="mv-sub-title">...关于坂本西红柿的一切</h3>
             </div>
             <div className="content">
                 <div className="observe-point"></div>
                 <section className="section">
                     <div className="section__inner">
-                        <h2 className="section__title">見出し1</h2>
-                        <p className="section__desc">
-                            あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう。
-                        </p>{' '}
+                        <h2 className="section__title">Spring</h2>
+                        <p className="section__desc">春雨贵如油</p>{' '}
                     </div>
                 </section>
                 <section className="section">
                     <div className="section__inner">
-                        <h2 className="section__title">見出し2</h2>
-                        <p className="section__desc">
-                            あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう。
-                        </p>
+                        <h2 className="section__title">Summer</h2>
+                        <p className="section__desc">映日荷花别样红</p>
                     </div>
                 </section>
                 <section className="section">
                     <div className="section__inner">
-                        <h2 className="section__title">見出し3</h2>
-                        <p className="section__desc">
-                            あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう。
-                        </p>
+                        <h2 className="section__title">秋</h2>
+                        <p className="section__desc">霜叶红于二月花</p>
                     </div>
                 </section>
                 <section className="section">
                     <div className="section__inner">
-                        <h2 className="section__title">見出し4</h2>
-                        <p className="section__desc">
-                            あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。またそのなかでいっしょになったたくさんのひとたち、ファゼーロとロザーロ、羊飼のミーロや、顔の赤いこどもたち、地主のテーモ、山猫博士のボーガント・デストゥパーゴなど、いまこの暗い巨きな石の建物のなかで考えていると、みんなむかし風のなつかしい青い幻燈のように思われます。では、わたくしはいつかの小さなみだしをつけながら、しずかにあの年のイーハトーヴォの五月から十月までを書きつけましょう。
-                        </p>
+                        <h2 className="section__title">冬</h2>
+                        <p className="section__desc">风雪夜归人</p>
                     </div>
                 </section>
             </div>
