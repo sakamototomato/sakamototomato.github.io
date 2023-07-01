@@ -1,0 +1,6 @@
+export enum EEvent {
+    'time_clock',
+    'switch_season',
+    'all_resources_loaded',
+    'resize',
+}

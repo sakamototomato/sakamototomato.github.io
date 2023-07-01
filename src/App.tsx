@@ -179,6 +179,7 @@ function App() {
                         <h2 className="section__title">冬</h2>
                         <p className="section__desc">风雪夜归人</p>
                     </div>
+                    <canvas className="seasons"></canvas>
                 </section>
             </div>
         </>
