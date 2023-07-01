@@ -180,6 +180,10 @@ function App() {
                         <p className="section__desc">风雪夜归人</p>
                     </div>
                     <canvas className="seasons"></canvas>
+                    <div className="first-move"></div>
+                    <div className="second-move"></div>
+                    <div className="third-move"></div>
+                    <div className="fourth-move"></div>
                 </section>
             </div>
         </>

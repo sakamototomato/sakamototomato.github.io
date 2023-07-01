@@ -5,6 +5,8 @@ import { Renderer } from './renderer'
 import { Time } from './time'
 import { SeasonManager } from './seasonManager'
 import { Resources } from './resources'
+import { World } from './world/world'
+import { EEvent } from './types/events'
 
 export class Seasons {
     static instance: Seasons
@@ -16,6 +18,7 @@ export class Seasons {
     time!: Time
     seasonManager!: SeasonManager
     resources!: Resources
+    world!: World
     constructor() {
         if (Seasons.instance) return Seasons.instance
 
@@ -32,5 +35,18 @@ export class Seasons {
 
         this.resources = new Resources()
         this.world = new World()
+
+        this.time.on(EEvent.update, this.update)
+        this.time.on(EEvent.resize, this.resize)
+    }
+    resize() {
+        this.camera.resize()
+        this.renderer.resize()
+        this.world.resize()
+    }
+    update() {
+        this.camera.update()
+        this.renderer.update()
+        this.world.update()
     }
 }

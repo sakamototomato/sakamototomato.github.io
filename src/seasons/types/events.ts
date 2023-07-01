@@ -3,4 +3,6 @@ export enum EEvent {
     'switch_season',
     'all_resources_loaded',
     'resize',
+    'loading_oomplete',
+    'update',
 }
