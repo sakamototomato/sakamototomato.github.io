@@ -5,7 +5,7 @@ export class Renderer extends Seasons {
     private webGLRenderer: three.WebGLRenderer // name conflicted with base class
     constructor() {
         super()
-        this.renderer = new three.WebGLRenderer({
+        this.webGLRenderer = new three.WebGLRenderer({
             canvas: this.canvas,
             antialias: true,
         })
