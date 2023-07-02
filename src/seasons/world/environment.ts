@@ -1,18 +1,21 @@
-import { Seasons } from '../seasons'
-import three from 'three'
+import { Seasons } from '..'
+import * as three from 'three'
 import { ESeason } from '../types/seasons'
 import { gsap } from 'gsap'
 
-export class Environment extends Seasons {
+export class Environment {
     sunLight: three.DirectionalLight
     ambientLight: three.AmbientLight
+    seasons: Seasons
     constructor() {
-        super()
+        this.seasons = new Seasons()
         this.sunLight = new three.DirectionalLight(0xffffff, 3)
         this.ambientLight = new three.AmbientLight(0xffffff, 1)
         this.setSunlight()
     }
     setSunlight() {
+        const {scene} = this.seasons
+
         this.sunLight.castShadow = true
         // 用来计算该平行光产生的阴影;
         this.sunLight.shadow.camera.far = 20
@@ -22,8 +25,8 @@ export class Environment extends Seasons {
         // 尤其是在光线以浅角度照射到几何体的大场景中。代价是阴影可能会出现扭曲
         this.sunLight.shadow.normalBias = 0.05
         this.sunLight.position.set(-2, 5, 3)
-        this.scene.add(this.sunLight)
-        this.scene.add(this.ambientLight)
+        scene.add(this.sunLight)
+        scene.add(this.ambientLight)
     }
 
     switchModel(season: ESeason) {

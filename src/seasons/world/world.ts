@@ -1,20 +1,24 @@
 import { PreLoader } from '../preLoader'
-import { Seasons } from '../seasons'
+import { Seasons } from '..'
 import { EEvent } from '../types/events'
 import { Background } from './background'
 import { Controls } from './controls'
 import { Environment } from './environment'
 import { Room } from './room'
 
-export class World extends Seasons {
+export class World {
     environment?: Environment
     room?: Room
     background?: Background
     controls?: Controls
     preLoader?: PreLoader
+    seasons: Seasons
     constructor() {
-        super()
-        this.resources.on(EEvent.all_resources_loaded, () => {
+        this.seasons = new Seasons()
+
+        const {resources} = this.seasons
+
+        resources.on(EEvent.all_resources_loaded, () => {
             this.environment = new Environment()
             this.room = new Room()
             this.background = new Background()
@@ -22,5 +26,13 @@ export class World extends Seasons {
             this.controls = new Controls()
             this.preLoader = new PreLoader()
         })
+
+    }
+    resize() {
+        // TODO: resize
+    }
+    update() {
+
+      this.room?.update();  
     }
 }

@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events'
-import { Seasons } from './seasons'
+import { Seasons } from '.'
 import { Renderer } from './renderer'
 
 import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'

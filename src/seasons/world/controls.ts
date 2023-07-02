@@ -1,11 +1,14 @@
-import { Seasons } from '../seasons'
+import { Seasons } from '..'
 import ASScroll from '@ashthornton/asscroll'
 
-export class Controls extends Seasons {
+export class Controls {
     asscroll?: ASScroll
+    seasons: Seasons
     constructor() {
-        super()
-        this.world.room?.room.children?.forEach((child) => {
+        this.seasons = new Seasons()
+        const {world} = this.seasons
+        
+        world.room?.room.children?.forEach((child) => {
             console.log('controls-child', child)
         })
 
@@ -21,9 +24,11 @@ export class Controls extends Seasons {
         this.setScrollTrigger()
     }
     setScrollTrigger() {
-        const room = this.world.room?.room
-        if (!room || !this.world.background) return
-        const { circle1, circle2 } = this.world.background
+        const {world, viewSizes} = this.seasons
+
+        const room = world.room?.room
+        if (!room || !world.background) return
+        const { circle1, circle2 } = world.background
 
         // new animation flow
         const scrollTrigger = {
@@ -36,7 +41,7 @@ export class Controls extends Seasons {
 
         mm.add('(min-width: 969px)', () => {
             tl.to(room.position, {
-                x: () => this.viewSizes.width * 0.0013,
+                x: () => viewSizes.width * 0.0013,
                 duration: 1,
                 scrollTrigger: {
                     trigger: '.first-move',

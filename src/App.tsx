@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { gsap } from 'gsap'
 import './app.scss'
+import { SeasonsFC } from './seasons'
 
 const mv = {
     isActive: true,
@@ -156,35 +157,8 @@ function App() {
             </div>
             <div className="content">
                 <div className="observe-point"></div>
-                <section className="section">
-                    <div className="section__inner">
-                        <h2 className="section__title">Spring</h2>
-                        <p className="section__desc">春雨贵如油</p>{' '}
-                    </div>
-                </section>
-                <section className="section">
-                    <div className="section__inner">
-                        <h2 className="section__title">Summer</h2>
-                        <p className="section__desc">映日荷花别样红</p>
-                    </div>
-                </section>
-                <section className="section">
-                    <div className="section__inner">
-                        <h2 className="section__title">秋</h2>
-                        <p className="section__desc">霜叶红于二月花</p>
-                    </div>
-                </section>
-                <section className="section">
-                    <div className="section__inner">
-                        <h2 className="section__title">冬</h2>
-                        <p className="section__desc">风雪夜归人</p>
-                    </div>
-                    <canvas className="seasons"></canvas>
-                    <div className="first-move"></div>
-                    <div className="second-move"></div>
-                    <div className="third-move"></div>
-                    <div className="fourth-move"></div>
-                </section>
+        
+              <SeasonsFC />
             </div>
         </>
     )

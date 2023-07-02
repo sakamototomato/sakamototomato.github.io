@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events'
-import { Seasons } from './seasons'
+import { Seasons } from '.'
 
 export class PreLoader extends EventEmitter {
     seasons: Seasons

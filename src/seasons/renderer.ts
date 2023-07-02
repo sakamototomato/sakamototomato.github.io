@@ -1,12 +1,13 @@
-import three from 'three'
-import { Seasons } from './seasons'
+import * as three from 'three'
+import { Seasons } from '.'
 
-export class Renderer extends Seasons {
+export class Renderer  {
     private webGLRenderer: three.WebGLRenderer // name conflicted with base class
+    seasons: Seasons
     constructor() {
-        super()
+        this.seasons = new Seasons()
         this.webGLRenderer = new three.WebGLRenderer({
-            canvas: this.canvas,
+            canvas: this.seasons.canvas,
             antialias: true,
         })
 
@@ -22,10 +23,12 @@ export class Renderer extends Seasons {
         this.resize()
     }
     public resize() {
-        this.webGLRenderer.setSize(this.viewSizes.width, this.viewSizes.height)
-        this.webGLRenderer.setPixelRatio(this.viewSizes.pixelRatio)
+        const {viewSizes} = this.seasons
+        this.webGLRenderer.setSize(viewSizes.width, viewSizes.height)
+        this.webGLRenderer.setPixelRatio(viewSizes.pixelRatio)
     }
     public update() {
-        this.webGLRenderer.render(this.scene, this.camera.OrthographicCamera)
+        const {scene, camera} = this.seasons
+        this.webGLRenderer.render(scene, camera.OrthographicCamera)
     }
 }

@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events'
-import { Seasons } from './seasons'
+import { Seasons } from '.'
 import { EEvent } from './types/events'
 import { ESeason } from './types/seasons'
 
