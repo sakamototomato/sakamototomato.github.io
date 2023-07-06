@@ -1,19 +1,19 @@
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { Seasons } from '..'
-import { Group, Object3D } from 'three'
+import { Object3D } from 'three'
 import * as three from 'three'
-
-export class Room{
+import gsap from "gsap"
+export class Room {
     roomGLTF: GLTF
     lerp: { current: number; target: number; ease: number }
-    room: Group
+    room: three.Group
     roomChildren: Record<string, Object3D>
     mixer: three.AnimationMixer
     rotation: number
     seasons: Seasons
     constructor() {
         this.seasons = new Seasons()
-        const {resources} = this.seasons
+        const { resources } = this.seasons
 
         this.roomGLTF = resources.items.room
         this.room = this.roomGLTF.scene
@@ -26,14 +26,16 @@ export class Room{
         this.rotation = 0
 
         this.setModel() // initilize models's basic information
-
+        console.log("this.roo===", this.room)
         this.mixer = new three.AnimationMixer(this.room)
+        console.log("this.roo===", this.room)
+
         this.setAnimation()
 
         this.onMouseMove()
     }
     onMouseMove() {
-        const {canvas} = this.seasons
+        const { canvas } = this.seasons
 
         canvas.addEventListener('mousemove', (e) => {
             this.rotation =
@@ -43,42 +45,98 @@ export class Room{
     }
     setAnimation() {
         // initialize animation here
+        this.mixer.clipAction(this.roomGLTF.animations?.[0])?.play()
     }
     setModel() {
-        const {scene} = this.seasons
-
-        this.room.children.forEach((child) => {
+        const { scene } = this.seasons
+        const children = this.room.children as Array<three.Group | three.Mesh>
+        children.forEach((child: three.Group | three.Mesh) => {
             child.castShadow = true
             child.receiveShadow = true
+            console.log("child.name", child.name, child)
+
             if (child.type === 'Group') {
-                child.children.forEach((groupChild) => {
+                child as three.Group
+
+                child.children.forEach((groupChild: { castShadow: boolean; receiveShadow: boolean }) => {
                     groupChild.castShadow = true
                     groupChild.receiveShadow = true
                 })
+
+                switch (child.name) {
+                    case "loading_cube":
+                        console.log("==")
+                        child.scale.set(15, 15, 15)
+                        break;
+
+                    case "road_lamp001":
+                        {
+                            const width = 0.5;
+                            const intensity = 3;
+                            const light = new three.PointLight(0xffffff, intensity, width);
+                            const targetPosition = child.position.clone().add(new three.Vector3(0, -1, 0));
+                            light.position.set(targetPosition.x, targetPosition.y, targetPosition.z)
+                            this.room.add(light);
+                        }
+                        break;
+
+                    case "road_lamp001 ":
+                        {
+                            const width = 0.5;
+                            const intensity = 3;
+                            const light = new three.PointLight(0xffffff, intensity, width);
+                            const targetPosition = child.position.clone().add(new three.Vector3(0, -1, 0));
+                            light.position.set(targetPosition.x, targetPosition.y, targetPosition.z)
+                            this.room.add(light);
+                        }
+                        break;
+                    default:
+                        break
+                }
+
             }
 
-            // modifier of models
-            switch (child.name) {
-                case 'ra':
-                    break
-                default:
-                    break
+
+            if ((child as three.Mesh).type == "Mesh") {
+                // modifier of models
+                switch (child.name) {
+                    case 'fish_tank':
+                        (child as three.Mesh).material = new three.MeshPhysicalMaterial({
+                            roughness: 0,
+                            color: 0x549dd2,
+                            ior: 3,
+                            opacity: 0.3,
+                            transparent: true
+                        });
+                        break
+
+
+                    default:
+                        break
+                }
             }
 
             child.scale.set(0, 0, 0)
             this.roomChildren[child.name.toLocaleLowerCase()] = child
 
-            scene.add(this.room)
-            this.room.scale.set(0.11, 0.11, 0.11)
         })
+        this.room.castShadow = true
+        this.room.receiveShadow = true
+        this.room.visible = true
+        const scale = 1
+        this.room.scale.set(scale, scale, scale)
+        this.room.rotateY(110)
+        scene.add(this.room)
+
     }
 
     update() {
-        const {time} = this.seasons
+        const { time } = this.seasons
 
         const { current, target, ease } = this.lerp
         this.lerp.current = gsap.utils.interpolate(current, target, ease)
         this.room.rotation.y = this.lerp.current
         this.mixer.update(time.delta * 0.001)
     }
+
 }

@@ -32,7 +32,6 @@ export class World {
         // TODO: resize
     }
     update() {
-
-      this.room?.update();  
+      this.room?.update(); 
     }
 }

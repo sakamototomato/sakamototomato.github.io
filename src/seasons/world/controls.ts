@@ -1,15 +1,20 @@
 import { Seasons } from '..'
 import ASScroll from '@ashthornton/asscroll'
-
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Object3D } from "three"
 export class Controls {
     asscroll?: ASScroll
     seasons: Seasons
+    lampLight?: Object3D;
     constructor() {
         this.seasons = new Seasons()
-        const {world} = this.seasons
-        
+        const { world } = this.seasons
+
         world.room?.room.children?.forEach((child) => {
-            console.log('controls-child', child)
+            if (child.name === "lamp_light") {
+                this.lampLight = child
+            }
         })
 
         // 向 GSAP 内核注册插件可确保两者无缝协作，还可以防止构建工具/捆绑器中的树抖动问题。您只需注册一次插件即可使用
@@ -24,7 +29,7 @@ export class Controls {
         this.setScrollTrigger()
     }
     setScrollTrigger() {
-        const {world, viewSizes} = this.seasons
+        const { world, viewSizes } = this.seasons
 
         const room = world.room?.room
         if (!room || !world.background) return
@@ -124,7 +129,7 @@ export class Controls {
         requestAnimationFrame(() => {
             asscroll.enable({
                 newScrollElements: document.querySelectorAll(
-                    '.gsap-marker-start, .gsap-marker-end, [asscroll]'
+                    '.gsap-marker-start, .gsap-marker-end, .asscroll'
                 ),
             })
         })

@@ -3,7 +3,7 @@ import { gsap } from 'gsap'
 import './app.scss'
 import { SeasonsFC } from './seasons'
 
-const mv = {
+export const mv = {
     isActive: true,
     isMoving: false,
 }
@@ -14,13 +14,10 @@ const pageScrollFromMv = () => {
     const tl = gsap.timeline()
     tl.to('.mv', {
         y: '-5%',
-        duration: 0.95,
+        duration:1,
+        height: 0,
         opacity: 0,
     })
-        .to('.mv', {
-            duration: 0.05,
-            ease: 'power3.out',
-        })
         .fromTo(
             '.content',
             { opacity: 0, y: '100vh', height: 'auto' },
@@ -151,6 +148,7 @@ function App() {
 
     return (
         <>
+          <canvas className="seasons"></canvas>
             <div className="mv">
                 <h1 className="mv-title">Sakamoto Tomato</h1>
                 <h3 className="mv-sub-title">...关于坂本西红柿的一切</h3>

@@ -26,7 +26,7 @@ export class Resources extends EventEmitter {
             {
                 name: 'room',
                 type: EModelType.glbModel,
-                path: '/snow_rabbit.glb',
+                path: '/room.glb',
             },
         ]
 
@@ -38,6 +38,9 @@ export class Resources extends EventEmitter {
             gltfLoader: new GLTFLoader(),
             dracoLoader: new DRACOLoader(),
         }
+
+        this.setLoaders()
+        this.load()
     }
 
     setLoaders() {

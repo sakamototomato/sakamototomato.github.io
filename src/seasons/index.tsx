@@ -7,8 +7,8 @@ import { SeasonManager } from './seasonManager'
 import { Resources } from './resources'
 import { World } from './world/world'
 import { EEvent } from './types/events'
-import { FC } from 'react'
-
+import { FC, useEffect } from 'react'
+import "./index.scss"
 export class Seasons {
     static instance: Seasons
     canvas!: HTMLElement
@@ -37,8 +37,8 @@ export class Seasons {
         this.resources = new Resources()
         this.world = new World()
 
-        this.time.on(EEvent.update, this.update)
-        this.time.on(EEvent.resize, this.resize)
+        this.time.on(EEvent.time_clock, () => this.update())
+        this.viewSizes.on(EEvent.resize, () => this.resize())
     }
     resize() {
         this.camera.resize()
@@ -54,35 +54,43 @@ export class Seasons {
 
 
 export const SeasonsFC: FC = () => {
-    return <>
-          <canvas className="seasons"></canvas>
-                <section className="section first-move">
-                    <div className="section__inner">
-                        <h2 className="section__title">Spring</h2>
-                        <p className="section__desc">春雨贵如油</p>{' '}
-                    </div>
-                </section>
+    useEffect(()=> {
+         new Seasons();
+    }, [])
+    return  <>
+          <div asscroll-container="asscroll-container">
 
-                <section className="section second-move">
-                    <div className="section__inner">
-                        <h2 className="section__title">Summer</h2>
-                        <p className="section__desc">映日荷花别样红</p>
-                    </div>
-                </section>
+        <div className='asscroll'>
+        <section className="section first-move">
+            <div className="section__inner">
+                <h2 className="section__title">Spring</h2>
+                <p className="section__desc">春雨贵如油</p>
+            </div>
+        </section>
+
+        <section className="section second-move">
+            <div className="section__inner">
+                <h2 className="section__title">Summer</h2>
+                <p className="section__desc">映日荷花别样红</p>
+            </div>
+        </section>
+
+        <section className="section third-move">
+            <div className="section__inner">
+                <h2 className="section__title">秋</h2>
+                <p className="section__desc">霜叶红于二月花</p>
+            </div>
+        </section>
+
         
-                <section className="section third-move">
-                    <div className="section__inner">
-                        <h2 className="section__title">秋</h2>
-                        <p className="section__desc">霜叶红于二月花</p>
-                    </div>
-                </section>
-
-                
-                <section className="section fourth-move">
-                    <div className="section__inner">
-                        <h2 className="section__title">冬</h2>
-                        <p className="section__desc">风雪夜归人</p>
-                    </div>
-                </section>
+        <section className="section fourth-move">
+            <div className="section__inner">
+                <h2 className="section__title">冬</h2>
+                <p className="section__desc">风雪夜归人</p>
+            </div>
+        </section>
+</div>
+</div>
     </>
+  
 }

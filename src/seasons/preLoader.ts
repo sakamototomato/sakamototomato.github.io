@@ -1,6 +1,7 @@
 import { EventEmitter } from 'events'
 import { Seasons } from '.'
-
+import { gsap } from 'gsap'
+import * as three from "three"
 export class PreLoader extends EventEmitter {
     seasons: Seasons
     constructor() {
@@ -13,35 +14,37 @@ export class PreLoader extends EventEmitter {
         const mm = gsap.matchMedia()
 
         const room = this.seasons.world.room
+        const axes = new three.AxesHelper(300)
+        this.seasons.scene.add(axes)
         if (!room) return
+
         room.room.children.forEach((child) => {
-            if (child.name === 'cube') {
+            if (child.name === 'loading_cube') {
                 mm.add('(min-width: 969px)', () => {
-                    tl.to(child.position, {
-                        x: 0.6576335430145264,
-                        y: 1.3361244201660156,
-                        z: -18.75898551940918,
-                        duration: 0.8,
-                    })
+
+                    const oringinScale = 10 * 3
+                    const targetScale = 1
+
+                    tl
                         .to(
                             child.scale,
                             {
-                                x: 1,
-                                y: 1,
-                                z: 1,
+                                x: oringinScale,
+                                y: oringinScale,
+                                z: oringinScale,
+                                duration: 0.5,
+                                yoyoEase: true
                             },
-                            0
                         )
                         .to(
                             child.scale,
                             {
-                                x: 0,
-                                y: 0,
-                                z: 0,
+                                x: targetScale,
+                                y: targetScale,
+                                z: targetScale,
                             },
-                            0
-                        ) // 这里的 0 表示同时开始
-                        .eventCallback('onComplete', this.homeLoading)
+                        )
+                        .eventCallback('onComplete', () => this.homeLoading())
                 })
             }
         })
@@ -54,16 +57,18 @@ export class PreLoader extends EventEmitter {
         const tl = gsap.timeline()
         const mm = gsap.matchMedia()
 
-        const excludedNames = ['xxx'] //TODO: show them later
+        // part should be shown later
+        const excludedNames = ['road_flower001', 'road_flower', 'road_path', 'road_path003', 'road_path002', 'road_path001', 'road_lamp001', 'road', 'road_flower_pot', 'road_mail_box']
         mm.add('(min-width: 969px)', () => {
             const roomChildrenKeys = Object.keys(room.roomChildren).reverse()
             for (const key of roomChildrenKeys) {
                 if (excludedNames.includes(key)) continue
+                const scale = 2
                 tl.to(room.roomChildren[key].scale, {
-                    x: 1,
-                    y: 1,
-                    z: 1,
-                    duration: 0.25,
+                    x: scale,
+                    y: scale,
+                    z: scale,
+                    duration: 0.35,
                 })
             }
         })

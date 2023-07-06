@@ -71,6 +71,7 @@ export class Background{
         this.plane.rotation.x = Math.PI / 2
         this.plane.position.y = -0.3
         this.plane.receiveShadow = true
+        this.plane.scale.setScalar(4)
         scene.add(this.plane)
     }
 }

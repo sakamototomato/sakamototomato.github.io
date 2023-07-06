@@ -20,6 +20,6 @@ export class Time extends EventEmitter {
         this.current = currentTime
         this.elapsed = currentTime - this.start
         this.emit(EEvent.time_clock)
-        window.requestAnimationFrame(this.update)
+        window.requestAnimationFrame(() => this.update())
     }
 }

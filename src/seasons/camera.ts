@@ -19,6 +19,7 @@ export class Camera   {
                 0.1,
                 100
             )
+            this.initPerspectiveCamera()
             scene.add(this.perspectiveCamera)
 
             this.OrthographicCamera = new three.OrthographicCamera(
@@ -29,6 +30,7 @@ export class Camera   {
                 -50,
                 50
             )
+            this.initOrthographicCamera()
             scene.add(this.OrthographicCamera)
         }
         // init Controller
@@ -37,22 +39,21 @@ export class Camera   {
                 this.perspectiveCamera,
               canvas
             )
-            this.controls.enableDamping = true
-            this.controls.dampingFactor = 0.3
-            this.controls.enableZoom = false
         }
     }
 
     public initPerspectiveCamera() {
-        this.perspectiveCamera.position.y = 3.5
-        this.perspectiveCamera.position.x = 0.5
-        this.perspectiveCamera.position.z = 3
+        const distanceRatio = 0.7
+        this.perspectiveCamera.position.y = 3.8/ distanceRatio
+        this.perspectiveCamera.position.x = 3 / distanceRatio
+        this.perspectiveCamera.position.z = 3 / distanceRatio
     }
 
     public initOrthographicCamera() {
         this.OrthographicCamera.position.y = 6
         this.OrthographicCamera.position.z = 10
-        this.OrthographicCamera.rotation.x = -Math.PI / 6
+        this.OrthographicCamera.position.x = 10
+        this.OrthographicCamera.rotation.x = -Math.PI / 4
     }
 
     public resize() {

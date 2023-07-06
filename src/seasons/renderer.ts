@@ -29,6 +29,6 @@ export class Renderer  {
     }
     public update() {
         const {scene, camera} = this.seasons
-        this.webGLRenderer.render(scene, camera.OrthographicCamera)
+        this.webGLRenderer.render(scene, camera.perspectiveCamera)
     }
 }
