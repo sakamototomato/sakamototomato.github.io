@@ -32,9 +32,8 @@ export class PreLoader extends EventEmitter {
                                 x: oringinScale,
                                 y: oringinScale,
                                 z: oringinScale,
-                                duration: 0.5,
-                                yoyoEase: true
                             },
+
                         )
                         .to(
                             child.scale,
@@ -51,25 +50,33 @@ export class PreLoader extends EventEmitter {
     }
     homeLoading() {
         const world = this.seasons.world
-        const room = world.room
-        if (!room) return
+        if (!world.room) return
+        const { room, roomChildren } = world.room
 
         const tl = gsap.timeline()
         const mm = gsap.matchMedia()
 
+        tl.to(room.position, {
+            x: 0, y: 0, z: 0,
+            ease: 'power1.out',
+        })
+
         // part should be shown later
         const excludedNames = ['road_flower001', 'road_flower', 'road_path', 'road_path003', 'road_path002', 'road_path001', 'road_lamp001', 'road', 'road_flower_pot', 'road_mail_box']
         mm.add('(min-width: 969px)', () => {
-            const roomChildrenKeys = Object.keys(room.roomChildren).reverse()
+            const roomChildrenKeys = Object.keys(roomChildren).reverse()
             for (const key of roomChildrenKeys) {
                 if (excludedNames.includes(key)) continue
-                const scale = 2
-                tl.to(room.roomChildren[key].scale, {
+                const scale = 1
+                tl.to(roomChildren[key].scale, {
                     x: scale,
                     y: scale,
                     z: scale,
-                    duration: 0.35,
-                })
+                    ease: 'power1.out',
+                }, "same")
+                    .to(roomChildren.loading_cube?.rotation, {
+                        y: 2 * Math.PI + 3 * Math.PI / 4
+                    })
             }
         })
     }

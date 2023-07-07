@@ -1,7 +1,7 @@
 import * as three from 'three'
 import { Seasons } from '.'
 
-export class Renderer  {
+export class Renderer {
     private webGLRenderer: three.WebGLRenderer // name conflicted with base class
     seasons: Seasons
     constructor() {
@@ -23,12 +23,12 @@ export class Renderer  {
         this.resize()
     }
     public resize() {
-        const {viewSizes} = this.seasons
+        const { viewSizes } = this.seasons
         this.webGLRenderer.setSize(viewSizes.width, viewSizes.height)
         this.webGLRenderer.setPixelRatio(viewSizes.pixelRatio)
     }
     public update() {
-        const {scene, camera} = this.seasons
+        const { scene, camera } = this.seasons
         this.webGLRenderer.render(scene, camera.perspectiveCamera)
     }
 }

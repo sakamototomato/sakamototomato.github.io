@@ -1,16 +1,16 @@
-import  { PerspectiveCamera } from 'three'
+import { PerspectiveCamera } from 'three'
 import { Seasons } from '.'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as three from 'three'
 
-export class Camera   {
+export class Camera {
     public perspectiveCamera: PerspectiveCamera
-    public OrthographicCamera: three.OrthographicCamera
+    public orthographicCamera: three.OrthographicCamera
     public controls: OrbitControls
     seasons: Seasons
     constructor() {
         this.seasons = new Seasons()
-        const {scene, viewSizes, canvas} = this.seasons
+        const { scene, viewSizes, canvas } = this.seasons
         // init cameras
         {
             this.perspectiveCamera = new three.PerspectiveCamera(
@@ -22,7 +22,7 @@ export class Camera   {
             this.initPerspectiveCamera()
             scene.add(this.perspectiveCamera)
 
-            this.OrthographicCamera = new three.OrthographicCamera(
+            this.orthographicCamera = new three.OrthographicCamera(
                 (-viewSizes.aspectRatio * viewSizes.frustumSize) / 2,
                 (viewSizes.aspectRatio * viewSizes.frustumSize) / 2,
                 viewSizes.frustumSize / 2,
@@ -31,43 +31,43 @@ export class Camera   {
                 50
             )
             this.initOrthographicCamera()
-            scene.add(this.OrthographicCamera)
+            scene.add(this.orthographicCamera)
         }
         // init Controller
         {
             this.controls = new OrbitControls(
                 this.perspectiveCamera,
-              canvas
+                canvas
             )
         }
     }
 
     public initPerspectiveCamera() {
         const distanceRatio = 0.7
-        this.perspectiveCamera.position.y = 3.8/ distanceRatio
+        this.perspectiveCamera.position.y = 3.8 / distanceRatio
         this.perspectiveCamera.position.x = 3 / distanceRatio
         this.perspectiveCamera.position.z = 3 / distanceRatio
     }
 
     public initOrthographicCamera() {
-        this.OrthographicCamera.position.y = 6
-        this.OrthographicCamera.position.z = 10
-        this.OrthographicCamera.position.x = 10
-        this.OrthographicCamera.rotation.x = -Math.PI / 4
+        this.orthographicCamera.position.y = 6
+        this.orthographicCamera.position.z = 10
+        this.orthographicCamera.position.x = 10
+        this.orthographicCamera.rotation.x = -Math.PI / 4
     }
 
     public resize() {
-        const {viewSizes, } = this.seasons
+        const { viewSizes, } = this.seasons
 
         this.perspectiveCamera.aspect = viewSizes.aspectRatio
         this.perspectiveCamera.updateProjectionMatrix()
 
-        this.OrthographicCamera.left =
+        this.orthographicCamera.left =
             (-viewSizes.aspectRatio * viewSizes.frustumSize) / 2
-        this.OrthographicCamera.right = -this.OrthographicCamera.left
-        this.OrthographicCamera.top = viewSizes.frustumSize / 2
-        this.OrthographicCamera.bottom = -this.OrthographicCamera.top
-        this.OrthographicCamera.updateProjectionMatrix()
+        this.orthographicCamera.right = -this.orthographicCamera.left
+        this.orthographicCamera.top = viewSizes.frustumSize / 2
+        this.orthographicCamera.bottom = -this.orthographicCamera.top
+        this.orthographicCamera.updateProjectionMatrix()
     }
 
     public update() {

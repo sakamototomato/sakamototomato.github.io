@@ -66,7 +66,8 @@ export class Room {
                 switch (child.name) {
                     case "loading_cube":
                         console.log("==")
-                        child.scale.set(15, 15, 15)
+                        child.position.set(0, 0.1, 0)
+                        child.rotation.y = Math.PI / 4
                         break;
 
                     case "road_lamp001":
@@ -97,7 +98,7 @@ export class Room {
             }
 
 
-            if ((child as three.Mesh).type == "Mesh") {
+            if (child.type == "Mesh") {
                 // modifier of models
                 switch (child.name) {
                     case 'fish_tank':
@@ -116,14 +117,16 @@ export class Room {
                 }
             }
 
-            child.scale.set(0, 0, 0)
+            const scale = 0
+            child.scale.set(scale, scale, scale)
+
             this.roomChildren[child.name.toLocaleLowerCase()] = child
 
         })
         this.room.castShadow = true
         this.room.receiveShadow = true
-        this.room.visible = true
-        const scale = 1
+        // this.room.visible = true
+        const scale = 0.26
         this.room.scale.set(scale, scale, scale)
         this.room.rotateY(110)
         scene.add(this.room)
