@@ -7,6 +7,7 @@ export class ViewSizes extends EventEmitter {
     height: number
     aspectRatio: number
     pixelRatio: number
+    device: "mobile" | "desktop"
     constructor() {
         super()
         this.frustumSize = 5
@@ -14,6 +15,12 @@ export class ViewSizes extends EventEmitter {
         this.height = window.innerHeight
         this.aspectRatio = this.width / this.height
         this.pixelRatio = Math.min(window.devicePixelRatio, 2)
+        if (this.width < 968) {
+            this.device = "mobile"
+        } else {
+            this.device = "desktop"
+        }
+
         window.addEventListener('resize', () => {
             this.width = window.innerWidth
             this.height = window.innerHeight

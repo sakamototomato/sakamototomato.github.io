@@ -17,6 +17,8 @@ export class Room {
 
         this.roomGLTF = resources.items.room
         this.room = this.roomGLTF.scene
+        this.room.position.x = 0
+        this.room.position.z = 0
         this.roomChildren = {}
         this.lerp = {
             current: 0,
@@ -26,11 +28,8 @@ export class Room {
         this.rotation = 0
 
         this.setModel() // initilize models's basic information
-        console.log("this.roo===", this.room)
         this.mixer = new three.AnimationMixer(this.room)
-        console.log("this.roo===", this.room)
 
-        this.setAnimation()
 
         this.onMouseMove()
     }
@@ -53,7 +52,6 @@ export class Room {
         children.forEach((child: three.Group | three.Mesh) => {
             child.castShadow = true
             child.receiveShadow = true
-            console.log("child.name", child.name, child)
 
             if (child.type === 'Group') {
                 child as three.Group
@@ -64,11 +62,6 @@ export class Room {
                 })
 
                 switch (child.name) {
-                    case "loading_cube":
-                        console.log("==")
-                        child.position.set(0, 0.1, 0)
-                        child.rotation.y = Math.PI / 4
-                        break;
 
                     case "road_lamp001":
                         {
@@ -126,9 +119,9 @@ export class Room {
         this.room.castShadow = true
         this.room.receiveShadow = true
         // this.room.visible = true
-        const scale = 0.26
+        const scale = 0.17
+        this.room.rotation.set(-0.28, 3 * Math.PI / 4, 0)
         this.room.scale.set(scale, scale, scale)
-        this.room.rotateY(110)
         scene.add(this.room)
 
     }
@@ -138,7 +131,7 @@ export class Room {
 
         const { current, target, ease } = this.lerp
         this.lerp.current = gsap.utils.interpolate(current, target, ease)
-        this.room.rotation.y = this.lerp.current
+        // this.room.rotation.y = this.lerp.current + this.room.rotation.y
         this.mixer.update(time.delta * 0.001)
     }
 

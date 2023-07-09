@@ -20,18 +20,17 @@ export class Camera {
                 100
             )
             this.initPerspectiveCamera()
-            scene.add(this.perspectiveCamera)
 
             this.orthographicCamera = new three.OrthographicCamera(
                 (-viewSizes.aspectRatio * viewSizes.frustumSize) / 2,
                 (viewSizes.aspectRatio * viewSizes.frustumSize) / 2,
                 viewSizes.frustumSize / 2,
                 -viewSizes.frustumSize / 2,
-                -50,
-                50
+                1,
+                1000
             )
             this.initOrthographicCamera()
-            scene.add(this.orthographicCamera)
+
         }
         // init Controller
         {
@@ -39,21 +38,29 @@ export class Camera {
                 this.perspectiveCamera,
                 canvas
             )
+            this.controls.enableDamping = false;
+            this.controls.enableZoom = true;
         }
+        scene.add(this.perspectiveCamera)
+        scene.add(this.perspectiveCamera)
+        scene.add(this.orthographicCamera)
+
     }
 
     public initPerspectiveCamera() {
-        const distanceRatio = 0.7
-        this.perspectiveCamera.position.y = 3.8 / distanceRatio
-        this.perspectiveCamera.position.x = 3 / distanceRatio
-        this.perspectiveCamera.position.z = 3 / distanceRatio
+        const distanceRatio = 1
+        this.perspectiveCamera.position.y = 12 / distanceRatio
+        this.perspectiveCamera.position.z = 6 / distanceRatio
+        this.perspectiveCamera.lookAt(0, 0, 0)
+
     }
 
     public initOrthographicCamera() {
-        this.orthographicCamera.position.y = 6
-        this.orthographicCamera.position.z = 10
-        this.orthographicCamera.position.x = 10
-        this.orthographicCamera.rotation.x = -Math.PI / 4
+        const distanceRatio = .2
+        this.orthographicCamera.zoom = 2
+        this.orthographicCamera.position.y = 12 / distanceRatio
+        this.orthographicCamera.position.z = 6 / distanceRatio
+        this.orthographicCamera.lookAt(0, 0, 0)
     }
 
     public resize() {

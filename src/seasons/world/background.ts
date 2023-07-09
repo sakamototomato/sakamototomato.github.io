@@ -1,7 +1,7 @@
 import { Seasons } from '..'
 import * as three from 'three'
 
-export class Background{
+export class Background {
     geometry: three.PlaneGeometry
     material: three.MeshStandardMaterial
     plane: three.Mesh<three.PlaneGeometry, three.MeshStandardMaterial>
@@ -17,7 +17,7 @@ export class Background{
         this.seasons = new Seasons()
         this.geometry = new three.PlaneGeometry(100, 100)
         this.material = new three.MeshStandardMaterial({
-            color: 0xffffff,
+            color: 0x708bf4,
             side: three.BackSide,
         })
         this.plane = new three.Mesh(this.geometry, this.material)
@@ -44,7 +44,7 @@ export class Background{
         this.setCircle()
     }
     setCircle() {
-        const {scene} = this.seasons
+        const { scene } = this.seasons
 
         this.circle1.scale.set(0, 0, 0)
         this.circle2.scale.set(0, 0, 0)
@@ -56,22 +56,22 @@ export class Background{
         this.circle1.rotation.x =
             this.circle2.rotation.x =
             this.circle3.rotation.x =
-                Math.PI / 2
+            Math.PI / 2
         this.circle1.receiveShadow =
             this.circle2.receiveShadow =
             this.circle3.receiveShadow =
-                true
+            true
         scene.add(this.circle1)
         scene.add(this.circle2)
         scene.add(this.circle3)
     }
     setBackground() {
-        const {scene} = this.seasons
+        const { scene } = this.seasons
 
         this.plane.rotation.x = Math.PI / 2
         this.plane.position.y = -0.3
         this.plane.receiveShadow = true
-        this.plane.scale.setScalar(4)
+        this.plane.scale.setScalar(0.5)
         scene.add(this.plane)
     }
 }

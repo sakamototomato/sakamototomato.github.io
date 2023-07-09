@@ -17,7 +17,7 @@ export class Renderer {
     public setRenderer() {
         this.webGLRenderer.outputColorSpace = three.SRGBColorSpace
         this.webGLRenderer.toneMapping = three.ReinhardToneMapping // 色调映射;
-        this.webGLRenderer.toneMappingExposure = 2
+        this.webGLRenderer.toneMappingExposure = 1.2
         this.webGLRenderer.shadowMap.enabled = true
         this.webGLRenderer.shadowMap.type = three.PCFSoftShadowMap // 定义阴影贴图类型;
         this.resize()
@@ -29,6 +29,6 @@ export class Renderer {
     }
     public update() {
         const { scene, camera } = this.seasons
-        this.webGLRenderer.render(scene, camera.perspectiveCamera)
+        this.webGLRenderer.render(scene, camera.orthographicCamera)
     }
 }
