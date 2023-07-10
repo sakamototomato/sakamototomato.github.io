@@ -1,22 +1,16 @@
 import { Seasons } from ".."
-import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js"
 import gsap from 'gsap'
-export const secondView = (seasons: Seasons) => {
+import { simple3Vector } from "../../utils/simple3Vector"
+import { Object3D } from "three"
+export const secondView = (seasons: Seasons, onComplete: () => void) => {
     if (!seasons.world.room) return
     const { room, roomChildren } = seasons.world.room
-    const { camera } = seasons
+    // const { camera } = seasons
     const tl = gsap.timeline()
-    const mm = gsap.matchMedia()
+    // const mm = gsap.matchMedia()
 
 
-    const gui = new GUI()
-
-    gui.add(camera.orthographicCamera.position, "y", -100, 1001)
-
-    gui.add(camera.orthographicCamera.position, "x", -100, 1001)
-    gui.add(camera.orthographicCamera.position, "z", -100, 100)
-    gui.add(room.rotation, "x", -10, 10)
-
+    // const gui = new GUI()
     tl.to(".intro-text .animatedis", {
         yPercent: 100,
         stagger: 0.05,
@@ -25,42 +19,114 @@ export const secondView = (seasons: Seasons) => {
 
         .to(".scroll-arrow", {
             opacity: 0,
-            y: -10
-        })
+            y: -10,
+            delay: 0.3
+        }, "same")
         .to(roomChildren.loading_cube.rotation, {
             y: Math.PI + Math.PI / 4
         }, "same")
         .to(room.position, {
-            z: 0.5, y: 0.3
+            z: 0.5, y: 0.5,
+            ease: 'power1.out',
         }, "same")
         .to(room.rotation, {
             x: - 2 * Math.PI / 7
         }, "same")
         .to(roomChildren.room.scale, {
-            x: 0.8, y: 0.8, z: 0.8
+            ...simple3Vector(1),
         }, "same")
         .to(roomChildren.loading_cube.scale, {
             x: 0, y: 0, z: 0,
-        }, "show_room")
+        }, "same")
+        .to(roomChildren.window.scale, {
+            ...simple3Vector(1),
+            duration: 0.5,
+        }, "show_room_table")
+        .to(roomChildren.table_board.scale, {
+            ...simple3Vector(1),
+            duration: 0.5,
+        }, "show_room_table")
+        .to(roomChildren.table_drawer.scale, {
+            ...simple3Vector(1),
+            duration: 0.5,
+        }, "show_room_table")
+        .to(roomChildren.border_leg.scale, {
+            ...simple3Vector(1),
+            duration: 0.5,
+        }, "show_room_table")
+        .to(roomChildren.monitor_shelf.scale, {
+            ...simple3Vector(1),
+            duration: 0.5,
+        }, "show_room_table")
+        .to(roomChildren.multiple_drawer.scale, {
+            ...simple3Vector(1),
+            duration: 0.5,
+        }, "show_room_table")
+        .to(roomChildren.monitor_sceen.scale, {
+            ...simple3Vector(1),
+            duration: 0.5,
+        }, "show_room_table").to(roomChildren.rustbin.scale, {
+            ...simple3Vector(1),
+            duration: 0.5,
+        }, "show_room_table").to(roomChildren.chiar_leg.scale, {
+            ...simple3Vector(1),
+            duration: 0.5,
+        }, "show_room_table")
+        .to(roomChildren.tank_base.scale, {
+            ...simple3Vector(1),
+            duration: 0.5,
+        }, "show_room_fish_tabk")
+        .to(roomChildren.fish_tank.scale, {
+            ...simple3Vector(1),
+            duration: 0.5,
+        }, "show_room_fish_tabk")
+        .to(roomChildren.fish.scale, {
+            ...simple3Vector(1),
+            duration: 0.5,
+            onComplete: () => seasons.world.room?.setAnimation()
+        }, "show_room_fish_tabk")
+        .to(roomChildren.chair.rotation, {
+            y: 2 * 3 * Math.PI,
+            duration: 2.5,
+        }, "show_room_chiar")
+        .from(roomChildren.chair.position, {
+            y: 10,
+            duration: 0.5,
+        }, "show_room_chiar")
+        .to(roomChildren.chair.scale, {
+            ...simple3Vector(1),
+            duration: 0.5,
+        }, "show_room_chiar")
+
+
 
     // part should be shown later
-    const excludedNames = ['road_flower001', 'road_flower', 'road_path', 'road_path003', 'road_path002', 'road_path001', 'road_lamp001', 'road', 'road_flower_pot', 'road_mail_box']
-    mm.add('(min-width: 969px)', () => {
-        const roomChildrenKeys = Object.keys(roomChildren).reverse()
-        for (const key of roomChildrenKeys) {
-            console.log("key", key)
-
-            if (key == "loading_cube" || excludedNames.includes(key)) continue
-            // const scale = 1
-            // tl.to(roomChildren[key].scale, {
-            //     x: scale,
-            //     y: scale,
-            //     z: scale,
-            //     ease: 'power1.out',
-            // }, "same")
-            //     .to(roomChildren.loading_cube?.rotation, {
-            //         y: 2 * Math.PI + 3 * Math.PI / 4
-            //     })
-        }
+    const excludedNames = ['road_flower001', 'road_flower', 'road_path', 'road_path003', 'road_path002', 'road_path001', 'road_lamp', 'road', 'road_flower_pot', 'road_mail_box']
+    const roomChildrenKeys = Object.keys(roomChildren).reverse()
+    const tempThings: Array<Object3D> = []
+    roomChildrenKeys.forEach(key => {
+        if (key == "loading_cube" || excludedNames.includes(key) || roomChildren[key].scale.x == 1) return
+        tempThings.push(roomChildren[key])
+        tl.to(roomChildren[key].scale, {
+            ...simple3Vector(1),
+            lazy: false
+        }, "show_room_rest")
     })
+
+
+
+
+    const animaTexts = document.querySelectorAll(".scroll-start .animatedis")
+
+    tl.fromTo(animaTexts, { yPercent: 0 }, {
+        yPercent: -100,
+        stagger: 0.07,
+        ease: "back.out(1.7)",
+        duration: 0.8
+
+    }, "show_text")
+        .to(".scroll-arrow", {
+            opacity: 1,
+            onComplete
+        }, "show_text")
 }

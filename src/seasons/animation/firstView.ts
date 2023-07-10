@@ -1,4 +1,3 @@
-import * as THREE from "three"
 import { Seasons } from ".."
 import gsap from 'gsap'
 export const firstView = (seasons: Seasons, onComplete: () => void) => {
@@ -6,8 +5,7 @@ export const firstView = (seasons: Seasons, onComplete: () => void) => {
     const tl = gsap.timeline()
 
     const room = seasons.world.room
-    const axes = new THREE.AxesHelper(300)
-    seasons.scene.add(axes)
+
     if (!room) return
 
     const { roomChildren } = room;
@@ -36,7 +34,7 @@ export const firstView = (seasons: Seasons, onComplete: () => void) => {
         scale = 0.2
     }
 
-    tl.to(".animatedis", {
+    tl.to(".intro-text .animatedis", {
         yPercent: -100,
         stagger: 0.05,
         ease: "back.out(1.7)",

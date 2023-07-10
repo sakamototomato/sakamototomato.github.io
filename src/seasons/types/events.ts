@@ -5,4 +5,5 @@ export enum EEvent {
     'resize',
     'loading_oomplete',
     'update',
+    "is_scroll_active"
 }

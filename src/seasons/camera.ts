@@ -21,6 +21,7 @@ export class Camera {
             )
             this.initPerspectiveCamera()
 
+
             this.orthographicCamera = new three.OrthographicCamera(
                 (-viewSizes.aspectRatio * viewSizes.frustumSize) / 2,
                 (viewSizes.aspectRatio * viewSizes.frustumSize) / 2,
@@ -30,7 +31,6 @@ export class Camera {
                 1000
             )
             this.initOrthographicCamera()
-
         }
         // init Controller
         {
@@ -42,9 +42,8 @@ export class Camera {
             this.controls.enableZoom = true;
         }
         scene.add(this.perspectiveCamera)
-        scene.add(this.perspectiveCamera)
         scene.add(this.orthographicCamera)
-
+        this.resize()
     }
 
     public initPerspectiveCamera() {
@@ -57,9 +56,9 @@ export class Camera {
 
     public initOrthographicCamera() {
         const distanceRatio = .2
-        this.orthographicCamera.zoom = 2
+        this.orthographicCamera.zoom = 1.5
         this.orthographicCamera.position.y = 12 / distanceRatio
-        this.orthographicCamera.position.z = 6 / distanceRatio
+        this.orthographicCamera.position.z = 4 / distanceRatio
         this.orthographicCamera.lookAt(0, 0, 0)
     }
 

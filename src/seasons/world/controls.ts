@@ -19,13 +19,12 @@ export class Controls {
 
         // 向 GSAP 内核注册插件可确保两者无缝协作，还可以防止构建工具/捆绑器中的树抖动问题。您只需注册一次插件即可使用
         gsap.registerPlugin(ScrollTrigger)
-        if (
-            !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-                navigator.userAgent
-            )
-        ) {
-            this.asscroll = this.setSmoothScroll()
-        }
+
+
+        document.querySelector("body")!.style.overflow = "visible"
+
+        this.asscroll = this.setSmoothScroll()
+
         this.setScrollTrigger()
     }
     setScrollTrigger() {
@@ -33,7 +32,7 @@ export class Controls {
 
         const room = world.room?.room
         if (!room || !world.background) return
-        const { circle1, circle2 } = world.background
+        // const { circle1, circle2 } = world.background
 
         // new animation flow
         const scrollTrigger = {
@@ -41,63 +40,54 @@ export class Controls {
             scrub: 0.5,
             invalidateOnRefresh: true,
         }
-        const tl = gsap.timeline()
         const mm = gsap.matchMedia()
 
         mm.add('(min-width: 969px)', () => {
-            tl.to(room.position, {
-                x: () => viewSizes.width * 0.0013,
-                duration: 1,
-                scrollTrigger: {
-                    trigger: '.first-move',
-                    start: 'top top',
-                    end: 'bottom bottom',
-                    ...scrollTrigger,
-                },
-            })
-                // circle 1
-                .to(circle1.scale, {
-                    x: 10,
-                    y: 10,
-                    z: 10,
-                    duration: 1,
-                    scrollTrigger: {
-                        trigger: '.first-move',
-                        start: 'top top',
-                        end: 'bottom bottom',
-                        ...scrollTrigger,
-                    },
-                })
 
-            tl.to(room.scale, {
-                x: 0.4,
-                y: 0.4,
-                z: 0.4,
-                duration: 1,
+            const moveStart = gsap.timeline({
                 scrollTrigger: {
-                    trigger: '.second-move',
-                    start: 'top top',
-                    end: 'bottom bottom',
-                    ...scrollTrigger,
-                },
-            }).to(circle2.scale, {
-                x: 10,
-                y: 10,
-                z: 10,
-                duration: 1,
-                scrollTrigger: {
-                    trigger: '.second-move',
-                    start: 'top top',
-                    end: 'bottom bottom',
-                    ...scrollTrigger,
-                },
+                    trigger: ".scroll-start",
+                    start: "top top",
+                    end: "bottom bottom",
+                    ...scrollTrigger
+                }
             })
+            moveStart.to(room.position, {
+                x: () => viewSizes.width * 0.5 / 1000,
+                duration: 1,
+            })
+            const firstMoveTime = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".first-move",
+                    start: "top top",
+                    end: "bottom bottom",
+                    ...scrollTrigger
+                }
+            })
+            firstMoveTime.to(room.position, {
+                x: () => viewSizes.width * 0.5 / 1000,
+
+            })
+            const secondMove = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".second-move",
+                    start: "top top",
+                    end: "bottom bottom",
+                    ...scrollTrigger
+                }
+            })
+            secondMove.to(room.position, {
+                x: () => viewSizes.width * 0.5 / 1000,
+
+            })
+
+
             // TODO: too manay animation here are needed
         })
     }
     setSmoothScroll() {
         const asscroll = new ASScroll({
-            ease: 0.1,
+            ease: 0.19,
             disableRaf: true,
         })
         gsap.ticker.add(asscroll.update)

@@ -1,5 +1,5 @@
 canvas.seasons {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
 }
@@ -11,6 +11,7 @@ canvas.seasons {
     width: 100vw;
     height: 100vh;
 }
+
 
 // content
 .scroll-arrow {
@@ -34,15 +35,35 @@ canvas.seasons {
     position: absolute;
     display: inline-block;
     font-weight: 300;
-    top: 50%;
-    left: 43%;
+    left: 42%;
     color: var(--color-text);
-    transform: translate(-50%, -50%);
     text-align: center;
 }
 
 /* preloader stuff */
+.animated-text {
+    display: flex;
+    flex-direction: row;
+}
+
 .animatedis {
     display: flex;
     transform: translateY(100%);
+}
+
+.section.scroll-start {
+    .right {
+        position: absolute;
+        left: 20%;
+        top: 65%;
+    }
+
+}
+
+.section {
+    width: 50%;
+    padding: 1000px 4%;
+    margin: 0;
+
+    background-color: var(--color-background);
 }

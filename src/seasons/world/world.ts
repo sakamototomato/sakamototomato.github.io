@@ -16,22 +16,24 @@ export class World {
     constructor() {
         this.seasons = new Seasons()
 
-        const {resources} = this.seasons
+        const { resources } = this.seasons
 
         resources.on(EEvent.all_resources_loaded, () => {
             this.environment = new Environment()
             this.room = new Room()
             this.background = new Background()
 
-            this.controls = new Controls()
             this.preLoader = new PreLoader()
+            this.preLoader.on(EEvent.is_scroll_active, () => {
+                this.controls = new Controls()
+            })
         })
 
     }
     resize() {
-        // TODO: resize
+        // operation of sub class
     }
     update() {
-      this.room?.update(); 
+        this.room?.update();
     }
 }

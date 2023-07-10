@@ -15,7 +15,7 @@ export class ViewSizes extends EventEmitter {
         this.height = window.innerHeight
         this.aspectRatio = this.width / this.height
         this.pixelRatio = Math.min(window.devicePixelRatio, 2)
-        if (this.width < 968) {
+        if (this.width < 969) {
             this.device = "mobile"
         } else {
             this.device = "desktop"

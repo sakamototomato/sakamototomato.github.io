@@ -3,6 +3,7 @@ import { Seasons } from '.'
 import { convertDivToSpans } from '../utils/convertDivToSpans'
 import { firstView } from './animation/firstView'
 import { secondView } from './animation/secondView'
+import { EEvent } from './types/events'
 export class PreLoader extends EventEmitter {
     seasons: Seasons
     nextFlag: boolean | undefined
@@ -20,11 +21,8 @@ export class PreLoader extends EventEmitter {
         firstView(this.seasons, () => this.prepareSecondView())
     }
     setAssets() {
-        convertDivToSpans(document.querySelector<HTMLElement>(".intro-text"))
-        convertDivToSpans(document.querySelector<HTMLElement>(".char-main-title"))
-        convertDivToSpans(document.querySelector<HTMLElement>(".char-main-description"))
-        convertDivToSpans(document.querySelector<HTMLElement>(".char-two-subheading"))
-        convertDivToSpans(document.querySelector<HTMLElement>(".char-two-description"))
+        const elements = document.querySelectorAll<HTMLElement>(".animated-text");
+        convertDivToSpans(elements)
     }
 
     loadSecondView() {
@@ -33,7 +31,7 @@ export class PreLoader extends EventEmitter {
 
         const world = this.seasons.world
         if (!world.room) return
-        secondView(this.seasons)
+        secondView(this.seasons, () => this.emit(EEvent.is_scroll_active))
 
     }
 
