@@ -2,18 +2,13 @@ canvas.seasons {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: -1;
 }
 
 
-.asscroll-container {
-    position: relative;
-    overflow: visible;
-}
+
 
 .asscroll {
-    transform: translate3d(0px, 0px, 0px);
-    display: block;
-    height: 100vh;
     width: 100vw;
 }
 
@@ -21,7 +16,7 @@ canvas.seasons {
 // content
 .scroll-arrow {
     box-sizing: border-box;
-    position: fixed;
+    position: absolute;
     left: 50%;
     bottom: 5%;
     display: inline-block;
@@ -59,11 +54,17 @@ canvas.seasons {
     transform: translateY(100%);
 }
 
-.section.scroll-start {
+section.scroll-start {
+    position: relative;
+    display: block;
+    height: 100vh;
+    width: 100vw;
+
     .right {
         position: absolute;
-        left: 20%;
+        left: 50%;
         top: 65%;
+        transform: translateX(-100%);
     }
 
 }

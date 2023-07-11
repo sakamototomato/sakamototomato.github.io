@@ -9,7 +9,6 @@ import { World } from './world/world'
 import { EEvent } from './types/events'
 import { FC, useEffect } from 'react'
 import './index.scss'
-import { Loader } from '../utils/Loader'
 export class Seasons {
     static instance: Seasons
     canvas!: HTMLElement
@@ -59,16 +58,18 @@ export const SeasonsFC: FC = () => {
     }, [])
     return (
         <>
-            <div asscroll-container="asscroll-container">
+            <div
+                className="assscrollbs asscroll-container"
+                asscroll-container="asscroll-container"
+            >
                 <div className="asscroll">
-                    <Loader />
-
                     <h3 className="intro-text animated-text">
                         关于 Sakamoto Tomato 的一切...
                     </h3>
-                    <i className="scroll-arrow"></i>
-                    <section className="section scroll-start">
+                    <section className="scroll-start">
                         <div className="section__inner">
+                            <i className="scroll-arrow"></i>
+
                             <div className="right">
                                 <p className="animated-text">
                                     说是一切，其实没什么东西

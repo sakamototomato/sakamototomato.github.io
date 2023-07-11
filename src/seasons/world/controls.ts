@@ -20,10 +20,14 @@ export class Controls {
 
         // 向 GSAP 内核注册插件可确保两者无缝协作，还可以防止构建工具/捆绑器中的树抖动问题。您只需注册一次插件即可使用
         gsap.registerPlugin(ScrollTrigger)
+        // FIXME: Do not know why mobile has such issues
+        if (this.seasons.viewSizes.device === "mobile") {
+            document.querySelector("html")!.style.overflow = "visible"
 
+        }
         document.querySelector("body")!.style.overflow = "visible"
-
         this.asscroll = this.setSmoothScroll()
+
         scrollPageAnimation(this.seasons)
     }
 
@@ -55,16 +59,19 @@ export class Controls {
             },
             fixedMarkers: true,
         })
+
         asscroll.on('update', ScrollTrigger.update)
         ScrollTrigger.addEventListener('refresh', asscroll.resize)
 
+
         requestAnimationFrame(() => {
             asscroll.enable({
-                newScrollElements: document.querySelectorAll(
-                    '.gsap-marker-start, .gsap-marker-end, .asscroll'
-                ),
-            })
+                newScrollElements: document.querySelectorAll(".asscroll")
+            });
+
+
         })
         return asscroll
     }
+
 }
