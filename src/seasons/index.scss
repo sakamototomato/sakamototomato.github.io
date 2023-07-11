@@ -4,19 +4,24 @@ canvas.seasons {
     left: 0;
 }
 
+
+.asscroll-container {
+    position: relative;
+    overflow: visible;
+}
+
 .asscroll {
     transform: translate3d(0px, 0px, 0px);
-    position: fixed;
     display: block;
-    width: 100vw;
     height: 100vh;
+    width: 100vw;
 }
 
 
 // content
 .scroll-arrow {
     box-sizing: border-box;
-    position: absolute;
+    position: fixed;
     left: 50%;
     bottom: 5%;
     display: inline-block;
@@ -35,10 +40,13 @@ canvas.seasons {
     position: absolute;
     display: inline-block;
     font-weight: 300;
-    left: 42%;
+    left: 50%;
+    top: 50%;
     color: var(--color-text);
     text-align: center;
+    transform: translate(-50%, -50%);
 }
+
 
 /* preloader stuff */
 .animated-text {

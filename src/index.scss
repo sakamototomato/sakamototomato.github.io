@@ -1,3 +1,7 @@
+html {
+  overflow: hidden;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -87,12 +91,13 @@ button:focus-visible {
 
 
 :root {
-  font-size: 10px;
+  font-size: 20px;
+
 }
 
-@media screen and (min-width: 968px) {
+@media screen and (max-width: 968px) {
   :root {
-    font-size: 20px;
+    font-size: 10px;
   }
 }
 

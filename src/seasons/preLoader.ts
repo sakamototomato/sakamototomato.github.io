@@ -4,9 +4,12 @@ import { convertDivToSpans } from '../utils/convertDivToSpans'
 import { firstView } from './animation/firstView'
 import { secondView } from './animation/secondView'
 import { EEvent } from './types/events'
+// import { activateTest } from '../utils/test'
+import { getVariables } from '../utils/deviceVariables'
 export class PreLoader extends EventEmitter {
     seasons: Seasons
-    nextFlag: boolean | undefined
+    isIntroDone: boolean | undefined // "Sakamoto Tomato"
+    isRoomPageActive: boolean | undefined // after room is shown completely
 
     // below are related to element events, I don't care too much about their types
     // see https://codepen.io/walkmind/pen/MWqrrdz to test page scroll
@@ -19,24 +22,30 @@ export class PreLoader extends EventEmitter {
         this.seasons = new Seasons()
         this.setAssets()
         firstView(this.seasons, () => this.prepareSecondView())
+        // activateTest(this.seasons)
     }
     setAssets() {
         const elements = document.querySelectorAll<HTMLElement>(".animated-text");
         convertDivToSpans(elements)
+        this.modifyRoomOnMobile()
     }
 
     loadSecondView() {
-        if (!this.nextFlag) return
-        this.nextFlag = false
+        if (!this.isIntroDone) return
+        this.isIntroDone = false
 
         const world = this.seasons.world
         if (!world.room) return
-        secondView(this.seasons, () => this.emit(EEvent.is_scroll_active))
+        secondView(this.seasons, () => {
+            this.emit(EEvent.is_scroll_active)
+            this.isRoomPageActive = true
+            this.removeEventListener()
+        })
 
     }
 
     prepareSecondView(): void | null {
-        this.nextFlag = true
+        this.isIntroDone = true
         this.scrollOnceEvent = this.onScroll.bind(this)
         this.touchStart = this.onTouch.bind(this)
         this.touchMove = this.onTouchMove.bind(this)
@@ -46,9 +55,6 @@ export class PreLoader extends EventEmitter {
     }
     onScroll(e: any) {
         if (e.deltaY > 0) {
-
-            this.removeEventListener();
-
             this.loadSecondView();
 
         }
@@ -56,8 +62,8 @@ export class PreLoader extends EventEmitter {
     onTouchMove(e: any) {
         const currentY = e.touches[0].clientY;
         const differnce = this.initialY - currentY;
+
         if (differnce > 0) {
-            this.removeEventListener();
             this.loadSecondView();
         }
         this.initialY = null;
@@ -69,5 +75,13 @@ export class PreLoader extends EventEmitter {
         window.removeEventListener("wheel", this.scrollOnceEvent);
         window.removeEventListener("touchstart", this.touchStart);
         window.removeEventListener("touchmove", this.touchMove);
+    }
+
+    modifyRoomOnMobile() {
+        if (!this.seasons.world.room) return
+        const { room, roomChildren } = this.seasons.world.room
+        const { roomScale, cubeScale } = getVariables(this.seasons)
+        room?.scale.set(roomScale, roomScale, roomScale)
+        roomChildren.loading_cube.scale.set(cubeScale, cubeScale, cubeScale)
     }
 }

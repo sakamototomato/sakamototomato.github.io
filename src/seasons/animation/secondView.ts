@@ -5,10 +5,12 @@ import { Object3D } from "three"
 export const secondView = (seasons: Seasons, onComplete: () => void) => {
     if (!seasons.world.room) return
     const { room, roomChildren } = seasons.world.room
-    // const { camera } = seasons
     const tl = gsap.timeline()
-    // const mm = gsap.matchMedia()
 
+    // part should be shown later
+    const excludedNames = ['road_flower001', 'road_flower', 'road_path', 'road_path003', 'road_path002', 'road_path001', 'road_lamp', 'road', 'road_flower_pot', 'road_mail_box']
+    const roomChildrenKeys = Object.keys(roomChildren).reverse()
+    const tempThings: Array<Object3D> = []
 
     // const gui = new GUI()
     tl.to(".intro-text .animatedis", {
@@ -99,20 +101,14 @@ export const secondView = (seasons: Seasons, onComplete: () => void) => {
         }, "show_room_chiar")
 
 
-
-    // part should be shown later
-    const excludedNames = ['road_flower001', 'road_flower', 'road_path', 'road_path003', 'road_path002', 'road_path001', 'road_lamp', 'road', 'road_flower_pot', 'road_mail_box']
-    const roomChildrenKeys = Object.keys(roomChildren).reverse()
-    const tempThings: Array<Object3D> = []
     roomChildrenKeys.forEach(key => {
         if (key == "loading_cube" || excludedNames.includes(key) || roomChildren[key].scale.x == 1) return
         tempThings.push(roomChildren[key])
-        tl.to(roomChildren[key].scale, {
-            ...simple3Vector(1),
-            lazy: false
-        }, "show_room_rest")
     })
 
+    tl.to(tempThings.map(module => module.scale), {
+        ...simple3Vector(1),
+    }, "show_room_rest")
 
 
 

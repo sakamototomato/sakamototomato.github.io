@@ -4,8 +4,6 @@
   top: 0;
   left: 0;
   background-color: var(--color-background-light);
-  /* position: fixed; */
-  /* top: 50%; */
   opacity: 1;
   width: 100vw;
   height: 100vh;
@@ -26,10 +24,7 @@
 
   .loading {
     display: flex;
-    position: fixed;
-
     top: 50%;
-    right: 48%;
     justify-content: center;
     align-items: center;
   }
