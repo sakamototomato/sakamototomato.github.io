@@ -18,7 +18,7 @@ canvas.seasons {
     box-sizing: border-box;
     position: absolute;
     left: 50%;
-    bottom: 5%;
+    bottom: 15%;
     display: inline-block;
     border: 1rem solid rgba($color: #fff9e3b3, $alpha: 0.7);
     border-width: 0 1rem 1rem 0;
@@ -36,12 +36,11 @@ canvas.seasons {
     display: inline-block;
     font-weight: 300;
     left: 50%;
-    top: 50%;
+    top: 53%;
     color: var(--color-text);
     text-align: center;
     transform: translate(-50%, -50%);
 }
-
 
 /* preloader stuff */
 .animated-text {
@@ -73,7 +72,8 @@ canvas.seasons {
     position: relative;
     margin: 0;
     color: var(--color-text);
-    margin-top: 120vh;
+    margin-top: 3000px;
+    margin-bottom: 20px;
 
     .section__inner {
         position: relative;

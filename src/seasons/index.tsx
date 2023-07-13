@@ -76,6 +76,7 @@ export const SeasonsFC: FC = () => {
                             <p className="animated-text">多少有点不过就是了</p>
                         </div>
                     </div>
+
                     <section className="section first-move">
                         <div className="section__inner">
                             <h2 className="section__title">Name</h2>

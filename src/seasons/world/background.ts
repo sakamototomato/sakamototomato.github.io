@@ -30,15 +30,15 @@ export class Background {
 
         this.circleGeometry = new three.CircleGeometry(4, 32)
         this.circleMaterial1 = new three.MeshStandardMaterial({
-            color: 0x9cf19b,
+            color: 0xffbadf,
             side: three.BackSide,
         })
         this.circleMaterial2 = new three.MeshStandardMaterial({
-            color: 0x87A2FB,
+            color: 0x9cf19b,
             side: three.DoubleSide
         })
         this.circleMaterial3 = new three.MeshStandardMaterial({
-            color: 0x7BDDB5,
+            color: 0x7e80f9,
             side: three.DoubleSide
         })
         this.circle1 = new three.Mesh(this.circleGeometry, this.circleMaterial1)

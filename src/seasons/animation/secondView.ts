@@ -2,6 +2,13 @@ import { Seasons } from ".."
 import gsap from 'gsap'
 import { simple3Vector } from "../../utils/simple3Vector"
 import { Object3D } from "three"
+
+
+// show below things after an while
+export const excludedNames = ['road_flower', "road_flower001",
+    'road_path', 'road_path003', 'road_path002', 'road_path001',
+    'road_lamp', 'road', 'road_flower_pot', 'road_mail_box'] as string[]
+
 export const secondView = (seasons: Seasons, onComplete: () => void) => {
     const background = seasons.world.background
 
@@ -11,7 +18,6 @@ export const secondView = (seasons: Seasons, onComplete: () => void) => {
     const tl = gsap.timeline()
 
     // part should be shown later
-    const excludedNames = ['road_flower001', 'road_flower', 'road_path', 'road_path003', 'road_path002', 'road_path001', 'road_lamp', 'road', 'road_flower_pot', 'road_mail_box']
     const roomChildrenKeys = Object.keys(roomChildren).reverse()
     const tempThings: Array<Object3D> = []
 
@@ -35,7 +41,7 @@ export const secondView = (seasons: Seasons, onComplete: () => void) => {
             duration: 1.5
         }, "same")
         .to(room.position, {
-            z: 3, duration: 1.5
+            z: 3, y: 0.05, duration: 1.5
         }, "same")
         .to(background.planeInner.scale, {
             y: 1, duration: 2
