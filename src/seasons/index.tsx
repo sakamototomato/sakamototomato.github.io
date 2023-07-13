@@ -66,20 +66,16 @@ export const SeasonsFC: FC = () => {
                     <h3 className="intro-text animated-text">
                         关于 Sakamoto Tomato 的一切...
                     </h3>
-                    <section className="scroll-start">
-                        <div className="section__inner">
-                            <i className="scroll-arrow"></i>
+                    <div className="scroll-start">
+                        <i className="scroll-arrow"></i>
 
-                            <div className="right">
-                                <p className="animated-text">
-                                    说是一切，其实没什么东西
-                                </p>
-                                <p className="animated-text">
-                                    多少有点不过就是了
-                                </p>
-                            </div>
+                        <div className="right">
+                            <p className="animated-text">
+                                说是一切，其实没什么东西
+                            </p>
+                            <p className="animated-text">多少有点不过就是了</p>
                         </div>
-                    </section>
+                    </div>
                     <section className="section first-move">
                         <div className="section__inner">
                             <h2 className="section__title">Name</h2>
@@ -93,6 +89,7 @@ export const SeasonsFC: FC = () => {
                                 “西红柿是世界上最好的东西,
                                 如果有更好的话，那一定是冰镇西红柿罐头”。
                             </p>
+                            <i className="section_scrollbar"></i>
                         </div>
                     </section>
 
@@ -118,6 +115,7 @@ export const SeasonsFC: FC = () => {
                                 而非Expeirence，此外也留下了一些TODO，根据经验人士“不要过早优化”的先进开发理念，
                                 这部分内容的更新暂且搁置，优先页面基础内容的完成度。
                             </p>
+                            <i className="section_scrollbar"></i>
                         </div>
                     </section>
 
@@ -134,6 +132,7 @@ export const SeasonsFC: FC = () => {
                                 <br />
                                 虽然并非自己的创作，不过我也希望能够制作出这样漂亮的作品。
                             </p>
+                            <i className="section_scrollbar"></i>
                         </div>
                     </section>
 
@@ -142,7 +141,12 @@ export const SeasonsFC: FC = () => {
                             <h2 className="section__title">Final</h2>
                             <p className="section__desc">
                                 感谢能够看到最后，再见！
+                                <br />
+                                Thanks,
+                                <br />
+                                xl
                             </p>
+                            <i className="section_scrollbar"></i>
                         </div>
                     </section>
                 </div>

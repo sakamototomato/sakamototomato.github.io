@@ -11,10 +11,11 @@ export class Environment {
         this.seasons = new Seasons()
         this.sunLight = new three.DirectionalLight(0xffffff, 3)
         this.ambientLight = new three.AmbientLight(0xffffff, 1)
+        document.querySelector("#root")?.classList.add("light-theme")
         this.setSunlight()
     }
     setSunlight() {
-        const {scene} = this.seasons
+        const { scene } = this.seasons
 
         this.sunLight.castShadow = true
         // 用来计算该平行光产生的阴影;

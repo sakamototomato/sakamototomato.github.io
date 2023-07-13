@@ -10,13 +10,6 @@ export class Controls {
     lampLight?: Object3D;
     constructor() {
         this.seasons = new Seasons()
-        const { world } = this.seasons
-
-        world.room?.room.children?.forEach((child) => {
-            if (child.name === "lamp_light") {
-                this.lampLight = child
-            }
-        })
 
         // 向 GSAP 内核注册插件可确保两者无缝协作，还可以防止构建工具/捆绑器中的树抖动问题。您只需注册一次插件即可使用
         gsap.registerPlugin(ScrollTrigger)
@@ -33,7 +26,7 @@ export class Controls {
 
     setSmoothScroll() {
         const asscroll = new ASScroll({
-            ease: 0.19,
+            ease: 0.1,
             disableRaf: true,
         })
         gsap.ticker.add(asscroll.update)

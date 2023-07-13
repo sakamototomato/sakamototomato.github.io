@@ -3,8 +3,11 @@ import gsap from 'gsap'
 import { simple3Vector } from "../../utils/simple3Vector"
 import { Object3D } from "three"
 export const secondView = (seasons: Seasons, onComplete: () => void) => {
-    if (!seasons.world.room) return
+    const background = seasons.world.background
+
+    if (!seasons.world.room || !background) return
     const { room, roomChildren } = seasons.world.room
+    const camera = seasons.camera.orthographicCamera
     const tl = gsap.timeline()
 
     // part should be shown later
@@ -27,12 +30,15 @@ export const secondView = (seasons: Seasons, onComplete: () => void) => {
         .to(roomChildren.loading_cube.rotation, {
             y: Math.PI + Math.PI / 4
         }, "same")
-        .to(room.position, {
-            z: 0.5, y: 0.5,
-            ease: 'power1.out',
+        .to(camera.position, {
+            y: 2, z: 15,
+            duration: 1.5
         }, "same")
-        .to(room.rotation, {
-            x: - 2 * Math.PI / 7
+        .to(room.position, {
+            z: 3, duration: 1.5
+        }, "same")
+        .to(background.planeInner.scale, {
+            y: 1, duration: 2
         }, "same")
         .to(roomChildren.room.scale, {
             ...simple3Vector(1),
@@ -40,10 +46,6 @@ export const secondView = (seasons: Seasons, onComplete: () => void) => {
         .to(roomChildren.loading_cube.scale, {
             x: 0, y: 0, z: 0,
         }, "same")
-        .to(roomChildren.window.scale, {
-            ...simple3Vector(1),
-            duration: 0.5,
-        }, "show_room_table")
         .to(roomChildren.table_board.scale, {
             ...simple3Vector(1),
             duration: 0.5,

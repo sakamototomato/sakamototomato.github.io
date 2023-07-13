@@ -35,7 +35,7 @@ export class Camera {
         // init Controller
         {
             this.controls = new OrbitControls(
-                this.perspectiveCamera,
+                this.orthographicCamera,
                 canvas
             )
             this.controls.enableDamping = false;
@@ -57,8 +57,9 @@ export class Camera {
     public initOrthographicCamera() {
         const distanceRatio = .2
         this.orthographicCamera.zoom = 1.5
-        this.orthographicCamera.position.y = 12 / distanceRatio
+        this.orthographicCamera.position.y = 1 / distanceRatio
         this.orthographicCamera.position.z = 4 / distanceRatio
+
         this.orthographicCamera.lookAt(0, 0, 0)
     }
 

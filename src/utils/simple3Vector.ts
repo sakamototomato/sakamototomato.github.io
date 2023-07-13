@@ -5,5 +5,5 @@ export const simple3Vector = (n = 1) => {
 }
 
 export const simple3Array = (n = 1) => {
-    return [n, n, n]
+    return [n, n, n] as const
 }

@@ -120,7 +120,8 @@ export class Room {
         this.room.receiveShadow = true
         // this.room.visible = true
         const scale = 0.17
-        this.room.rotation.set(-0.28, 3 * Math.PI / 4, 0)
+        this.room.position.y = 0
+        this.room.rotation.set(0, 11 * Math.PI / 4, 0)
         this.room.scale.set(scale, scale, scale)
         scene.add(this.room)
 
