@@ -1,3 +1,5 @@
+@use "./styles/modifier.scss";
+
 html {
   overflow: hidden;
 }
@@ -18,87 +20,92 @@ html {
   -webkit-text-size-adjust: 100%;
 
 
-  --color-text: black;
-  /* light theme */
-  --color-text-light: #2e2e2e;
-  --color-background-light: #faf4ea;
-  --color-pink-light: #7fbcd2fe;
-  --color-green-light: #7bddb5;
-  --color-blue-light: #87A2FB;
-  /* dark theme */
-  --color-text-dark: #e5e5e5;
-  --color-background-dark: #BFACE0;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+  a {
+    font-weight: 500;
+    color: #646cff;
+    text-decoration: inherit;
   }
 
   a:hover {
-    color: #747bff;
+    color: #535bf2;
+  }
+
+  body {
+    margin: 0;
+    display: flex;
+    place-items: center;
+    min-width: 320px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
   }
 
   button {
-    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
   }
-}
+
+  button:hover {
+    border-color: #646cff;
+  }
+
+  button:focus,
+  button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      color: #213547;
+      background-color: #ffffff;
+    }
+
+    a:hover {
+      color: #747bff;
+    }
+
+    button {
+      background-color: #f9f9f9;
+    }
+  }
 
 
-:root {
-  font-size: 20px;
-
-}
-
-@media screen and (max-width: 968px) {
   :root {
-    font-size: 10px;
+    font-size: 20px;
+
   }
+
+  @media screen and (max-width: 968px) {
+    :root {
+      font-size: 10px;
+    }
+  }
+
+  /* light theme */
+  --color-text-light: #3b3a3a;
+  --color-background-light: rgba(250, 244, 244, 0.629);
+  --color-pink-light: #7fbcd2fe;
+  --color-green-light: #7bddb5;
+  --color-blue-light: #87A2FB;
+  --color-title-light: rgb(250, 125, 125);
+  /* dark theme */
+  --color-text-dark: #f4efef;
+  --color-background-dark: rgba(34, 33, 33, 0.629);
+  --color-blue-dark: #87A2FB;
+  --color-pink-dark: #b979bf;
+  --color-green-dark: #7bc084;
+  --color-title-dark: rgb(139, 140, 215);
+
 }
 
 
@@ -108,14 +115,14 @@ button:focus-visible {
   --color-pink: var(--color-pink-light);
   --color-green: var(--color-green-light);
   --color-blue: var(--color-blue-light);
+  --color-title: var(--color-title-light);
 }
 
 .dark-theme {
   --color-text: var(--color-text-dark);
   --color-background: var(--color-background-dark);
-  --color-pink: var(--color-text-dark);
-  --color-green: var(--color-text-dark);
-  --color-blue: var(--color-text-dark);
+  --color-pink: var(--color-pink-dark);
+  --color-green: var(--color-pink-dark);
+  --color-blue: var(--color-pink-dark);
+  --color-title: var(--color-title-dark);
 }
-
-@import url("./styles/modifier.scss");

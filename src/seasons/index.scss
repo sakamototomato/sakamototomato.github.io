@@ -1,3 +1,6 @@
+@import "../styles/modifier.scss";
+
+
 canvas.seasons {
     position: fixed;
     top: 0;
@@ -20,14 +23,26 @@ canvas.seasons {
     left: 50%;
     bottom: 15%;
     display: inline-block;
-    border: 1rem solid rgba($color: #fff9e3b3, $alpha: 0.7);
-    border-width: 0 1rem 1rem 0;
+    border: 0.5rem solid var(--color-text);
+    border-width: 0 0.5rem 0.5rem 0;
     border-radius: 15%;
-    width: 4rem;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
     opacity: 0;
     background: transparent;
     transform: rotate(45deg) translateX(-70%) scale(0.6);
+    animation: 2s ease-in-out 0s infinite alternate alive;
+    transition: border-color 1s ease-in;
+
+    @keyframes alive {
+        from {
+            bottom: 14%;
+        }
+
+        to {
+            bottom: 16%;
+        }
+    }
 }
 
 .intro-text {
@@ -37,9 +52,10 @@ canvas.seasons {
     font-weight: 300;
     left: 50%;
     top: 53%;
-    color: var(--color-text);
     text-align: center;
     transform: translate(-50%, -50%);
+    @include theme-font(var(--color-text));
+
 }
 
 /* preloader stuff */
@@ -60,6 +76,7 @@ canvas.seasons {
     width: 100vw;
 
     .right {
+        @include theme-font(var(--color-text));
         position: absolute;
         left: 50%;
         top: 65%;
@@ -72,19 +89,21 @@ canvas.seasons {
     position: relative;
     margin: 0;
     color: var(--color-text);
-    margin-top: 3000px;
-    margin-bottom: 20px;
+    margin-bottom: 2000px;
 
     .section__inner {
         position: relative;
         overflow: hidden;
         padding: 1000px 4%;
         background-color: var(--color-background);
-        width: 50%;
+        width: 35%;
+        @include theme-font(var(--color-text));
+        transition: all 1s ease-in;
+
     }
 
     .section_scrollbar {
-        background: rgb(244, 150, 150);
+        background: var(--color-title);
         position: absolute;
         top: 0;
         width: 1rem;
@@ -94,15 +113,21 @@ canvas.seasons {
 
     @for $n from 0 through 4 {
         &:nth-child(2n + 1) {
+            .section__inner {
+                border-top-right-radius: 40%;
+                border-bottom-right-radius: 40%;
+            }
+
             .section_scrollbar {
                 left: 0;
             }
         }
 
         &:nth-child(2n) {
-            right: 0;
 
             .section__inner {
+                border-top-left-radius: 40%;
+                border-bottom-left-radius: 40%;
                 margin-left: auto;
             }
 
@@ -111,5 +136,11 @@ canvas.seasons {
             }
         }
 
+        &:last-child {
+            .section__inner {
+                border-bottom-left-radius: 0%;
+                padding-bottom: 300px;
+            }
+        }
     }
 }

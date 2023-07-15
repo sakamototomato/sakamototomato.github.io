@@ -7,7 +7,9 @@ import { SeasonManager } from './seasonManager'
 import { Resources } from './resources'
 import { World } from './world/world'
 import { EEvent } from './types/events'
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
+import { TitleDecoration } from './components/TitleDecoration'
+import { SunAndMoon } from './components/SunAndMoon'
 import './index.scss'
 export class Seasons {
     static instance: Seasons
@@ -53,9 +55,10 @@ export class Seasons {
 }
 
 export const SeasonsFC: FC = () => {
+    const [sasonsState, setSeasonsState] = useState<Seasons>()
     useEffect(() => {
-        new Seasons()
-    }, [])
+        setSeasonsState(new Seasons())
+    }, [setSeasonsState])
     return (
         <>
             <div
@@ -79,7 +82,7 @@ export const SeasonsFC: FC = () => {
 
                     <section className="section first-move">
                         <div className="section__inner">
-                            <h2 className="section__title">Name</h2>
+                            <TitleDecoration title="Name" />
                             <p className="section__desc">
                                 Sakamoto
                                 取自《日常》中的Sakamoto猫先生，房间里面的电脑上显示的图片也是出自相同的地方。
@@ -96,7 +99,7 @@ export const SeasonsFC: FC = () => {
 
                     <section className="section second-move">
                         <div className="section__inner">
-                            <h2 className="section__title">About</h2>
+                            <TitleDecoration title="About" />
                             <p className="section__desc">
                                 页面源于
                                 <a href="https://bokoko33.me/">
@@ -122,11 +125,12 @@ export const SeasonsFC: FC = () => {
 
                     <section className="section third-move">
                         <div className="section__inner">
-                            <h2 className="section__title">Contact</h2>
+                            <TitleDecoration title="Contact" />
                             <p className="section__desc">
                                 如果有什么感兴趣的地方欢迎和我联系:
+                                <br />
                                 <a type="email">13436274780@163.com</a>
-                                <br />&<br />
+                                <br />
                                 <a href="https://github.com/sakamototomato/sakamototomato.github.io">
                                     Github
                                 </a>
@@ -139,7 +143,7 @@ export const SeasonsFC: FC = () => {
 
                     <section className="section fourth-move">
                         <div className="section__inner">
-                            <h2 className="section__title">Final</h2>
+                            <TitleDecoration title="Final" />
                             <p className="section__desc">
                                 感谢能够看到最后，再见！
                                 <br />
@@ -152,6 +156,7 @@ export const SeasonsFC: FC = () => {
                     </section>
                 </div>
             </div>
+            {sasonsState && <SunAndMoon seasons={sasonsState} />}
         </>
     )
 }

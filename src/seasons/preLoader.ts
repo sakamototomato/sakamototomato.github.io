@@ -4,7 +4,7 @@ import { convertDivToSpans } from '../utils/convertDivToSpans'
 import { firstView } from './animation/firstView'
 import { secondView } from './animation/secondView'
 import { EEvent } from './types/events'
-// import { activateTest } from '../utils/test'
+import { activateTest } from '../utils/test'
 import { getVariables } from '../utils/deviceVariables'
 export class PreLoader extends EventEmitter {
     seasons: Seasons
@@ -22,7 +22,7 @@ export class PreLoader extends EventEmitter {
         this.seasons = new Seasons()
         this.setAssets()
         firstView(this.seasons, () => this.prepareSecondView())
-        // activateTest(this.seasons)
+        activateTest(this.seasons)
     }
     setAssets() {
         const elements = document.querySelectorAll<HTMLElement>(".animated-text");

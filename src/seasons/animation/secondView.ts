@@ -1,13 +1,14 @@
 import { Seasons } from ".."
 import gsap from 'gsap'
 import { simple3Vector } from "../../utils/simple3Vector"
-import { Object3D } from "three"
 
 
 // show below things after an while
-export const excludedNames = ['road_flower', "road_flower001",
+export const excludedNames = [
+    'road',
     'road_path', 'road_path003', 'road_path002', 'road_path001',
-    'road_lamp', 'road', 'road_flower_pot', 'road_mail_box'] as string[]
+    'road_lamp', 'road_flower_pot',
+    'road_flower', "road_flower001", 'road_mail_box'] as string[]
 
 export const secondView = (seasons: Seasons, onComplete: () => void) => {
     const background = seasons.world.background
@@ -19,9 +20,7 @@ export const secondView = (seasons: Seasons, onComplete: () => void) => {
 
     // part should be shown later
     const roomChildrenKeys = Object.keys(roomChildren).reverse()
-    const tempThings: Array<Object3D> = []
 
-    // const gui = new GUI()
     tl.to(".intro-text .animatedis", {
         yPercent: 100,
         stagger: 0.05,
@@ -111,12 +110,12 @@ export const secondView = (seasons: Seasons, onComplete: () => void) => {
 
     roomChildrenKeys.forEach(key => {
         if (key == "loading_cube" || excludedNames.includes(key) || roomChildren[key].scale.x == 1) return
-        tempThings.push(roomChildren[key])
+
+        tl.to(roomChildren[key].scale, {
+            ...simple3Vector(1),
+        }, "show_room_rest_" + "key")
     })
 
-    tl.to(tempThings.map(module => module.scale), {
-        ...simple3Vector(1),
-    }, "show_room_rest")
 
 
 

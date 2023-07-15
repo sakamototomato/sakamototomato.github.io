@@ -20,7 +20,6 @@ export class Controls {
         }
         document.querySelector("body")!.style.overflow = "visible"
         this.asscroll = this.setSmoothScroll()
-
         scrollPageAnimation(this.seasons)
     }
 
@@ -51,6 +50,7 @@ export class Controls {
                 }
             },
             fixedMarkers: true,
+            pinType: "fixed"
         })
 
         asscroll.on('update', ScrollTrigger.update)

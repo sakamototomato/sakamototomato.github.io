@@ -60,7 +60,6 @@ export class Room {
                     groupChild.castShadow = true
                     groupChild.receiveShadow = true
                 })
-
                 switch (child.name) {
 
                     case "road_lamp001":
@@ -126,10 +125,19 @@ export class Room {
         scene.add(this.room)
 
     }
+    clockTick() {
+        const room = this.seasons.world.room
+        if (!room) return
+        const { roomChildren } = room
+        const time = (() => new Date())()
+        roomChildren.hour_hand.rotation.z = (time.getHours() / 12) * Math.PI * 2
+        roomChildren.minute_hand.rotation.z = (time.getMinutes() / 60) * Math.PI * 2
+        roomChildren.second_hand.rotation.z = (time.getSeconds() / 60) * Math.PI * 2
+    }
 
     update() {
         const { time } = this.seasons
-
+        this.clockTick()
         const { current, target, ease } = this.lerp
         this.lerp.current = gsap.utils.interpolate(current, target, ease)
         // this.room.rotation.y = this.lerp.current + this.room.rotation.y

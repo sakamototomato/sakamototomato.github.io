@@ -1,5 +1,5 @@
 import { SeasonsFC } from './seasons'
-import { Loader } from './utils/Loader'
+import { Loader } from './seasons/components/Loader'
 
 function App() {
     return (
