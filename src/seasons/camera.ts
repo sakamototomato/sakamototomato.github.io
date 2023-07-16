@@ -27,8 +27,8 @@ export class Camera {
                 (viewSizes.aspectRatio * viewSizes.frustumSize) / 2,
                 viewSizes.frustumSize / 2,
                 -viewSizes.frustumSize / 2,
-                1,
-                1000
+                -100,
+                100
             )
             this.initOrthographicCamera()
         }
@@ -38,11 +38,13 @@ export class Camera {
                 this.orthographicCamera,
                 canvas
             )
-            this.controls.enableDamping = false;
-            this.controls.enableZoom = true;
+            this.controls.enableDamping = true;
+            this.controls.enableZoom = false;
         }
         scene.add(this.perspectiveCamera)
         scene.add(this.orthographicCamera)
+        this.controls.enableRotate = true
+
         this.resize()
     }
 
@@ -50,7 +52,6 @@ export class Camera {
         const distanceRatio = 1
         this.perspectiveCamera.position.y = 12 / distanceRatio
         this.perspectiveCamera.position.z = 6 / distanceRatio
-        this.perspectiveCamera.lookAt(0, 0, 0)
 
     }
 
@@ -59,8 +60,8 @@ export class Camera {
         this.orthographicCamera.zoom = 1.5
         this.orthographicCamera.position.y = 1 / distanceRatio
         this.orthographicCamera.position.z = 4 / distanceRatio
-
-        this.orthographicCamera.lookAt(0, 0, 0)
+        this.orthographicCamera.rotateY(Math.PI / 2)
+        // this.orthographicCamera.lookAt(0, 0, 0)
     }
 
     public resize() {
@@ -78,6 +79,7 @@ export class Camera {
     }
 
     public update() {
+        this.orthographicCamera.updateProjectionMatrix()
         this.controls.update()
     }
 }

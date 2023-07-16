@@ -8,7 +8,7 @@ export const scrollPageAnimation = (seasons: Seasons) => {
     if (!world.room || !world.background) return
 
     const { room, roomChildren } = world.room
-    const camera = seasons.camera.orthographicCamera
+    const camera = seasons.camera
     const { circle1, circle2, circle3 } = world.background
     // new animation flow
     const scrollTrigger = {
@@ -54,7 +54,6 @@ export const scrollPageAnimation = (seasons: Seasons) => {
         //     x: () => viewSizes.width * 0.5 / 1000,
         // })
 
-
         // first section: introduction
         const firstMoveTime = gsap.timeline({
             scrollTrigger: {
@@ -62,7 +61,32 @@ export const scrollPageAnimation = (seasons: Seasons) => {
                 ...scrollTrigger,
             }
         })
+
         firstMoveTime.add([
+            gsap.to(camera.orthographicCamera.position, isMobile ? {
+                x
+                    :
+                    -0.7,
+                y
+                    :
+                    1,
+                z
+                    :
+                    9,
+            } : {
+                x
+                    :
+                    1.5,
+                y
+                    :
+                    2,
+                z
+                    :
+                    9,
+            }),
+            gsap.to(camera.orthographicCamera, {
+                zoom: isMobile ? 4 : 3.7
+            }),
             gsap.to(room.position, {
                 x: () => viewSizes.width * 0.5 / 1000,
             }),
@@ -87,9 +111,34 @@ export const scrollPageAnimation = (seasons: Seasons) => {
             }
         })
         secondMove.add([
+            gsap.to(camera.orthographicCamera.position, isMobile ? {
+                x
+                    :
+                    -10,
+                y
+                    :
+                    7.3,
+                z
+                    :
+                    55,
+            } : {
+                x
+                    :
+                    -21,
+                y
+                    :
+                    12,
+                z
+                    :
+                    64.1,
+            }),
+            gsap.to(camera.orthographicCamera, {
+                zoom: isMobile ? 3.5 : 2.7
+            }),
             gsap.to(room.position, {
                 x: () => -viewSizes.width * 0.6 / 1000,
             }),
+
             gsap.to(".second-move .section_scrollbar", { y: 0 }),
             gsap.to(".second-move .section__inner", {
                 borderTopLeftRadius: '0%',
@@ -101,17 +150,16 @@ export const scrollPageAnimation = (seasons: Seasons) => {
             gsap.to(roomChildren.road.scale, {
                 ...simple3Vector(1),
             }),
-            gsap.to(excludedNames.map((key) => roomChildren[key].scale), {
-                ...simple3Vector(1)
-            }),
-            gsap.to(camera.position, {
-
-            }),
             gsap.fromTo(roomChildren.road.position, {
                 z: 0,
             }, {
-                z: -6.556597709655762,
+                z: -6.6,
+            }),
+            gsap.to(excludedNames.map((key) => roomChildren[key].scale), {
+                ...simple3Vector(1),
+                delay: 0.3
             })
+
         ])
 
 
@@ -124,6 +172,22 @@ export const scrollPageAnimation = (seasons: Seasons) => {
             }
         })
         thirdMove.add([
+            gsap.to(camera.orthographicCamera.position, {
+                x
+                    :
+                    4.3,
+                y
+                    :
+                    4.3,
+                z
+                    :
+                    21,
+
+            }),
+
+            gsap.to(camera.orthographicCamera, {
+                zoom: 2.23
+            }),
             gsap.to(room.position, {
                 x: () => viewSizes.width * 0.5 / 1000,
             }),
@@ -146,7 +210,28 @@ export const scrollPageAnimation = (seasons: Seasons) => {
                 ...scrollTrigger,
             }
         })
+
+
         fourthMove.add([
+
+            gsap.to(camera.orthographicCamera.position, isMobile ? {
+                x: -2, y: 16.6, z: 31.2
+            } : {
+                x
+                    :
+                    -0.8,
+                y
+                    :
+                    1.8,
+                z
+                    :
+                    15
+            }),
+
+
+            gsap.to(camera.orthographicCamera, {
+                zoom: isMobile ? 1 : 1.5
+            }),
             gsap.to(room.position, {
                 x: () => -viewSizes.width * 0.6 / 1000,
             }),

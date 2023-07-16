@@ -13,6 +13,8 @@ canvas.seasons {
 
 .asscroll {
     width: 100vw;
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -78,9 +80,9 @@ canvas.seasons {
     .right {
         @include theme-font(var(--color-text));
         position: absolute;
-        left: 50%;
+        left: 30%;
         top: 65%;
-        transform: translateX(-120%);
+        transform: translateX(-50%);
     }
 
 }
@@ -96,10 +98,14 @@ canvas.seasons {
         overflow: hidden;
         padding: 1000px 4%;
         background-color: var(--color-background);
-        width: 35%;
         @include theme-font(var(--color-text));
         transition: all 1s ease-in;
+        width: 35%;
+        box-sizing: border-box;
 
+        @include mobile {
+            width: 100vw;
+        }
     }
 
     .section_scrollbar {
@@ -137,6 +143,8 @@ canvas.seasons {
         }
 
         &:last-child {
+            margin-bottom: 0;
+
             .section__inner {
                 border-bottom-left-radius: 0%;
                 padding-bottom: 300px;

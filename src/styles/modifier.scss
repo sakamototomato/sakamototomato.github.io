@@ -6,3 +6,10 @@
     color: $color;
     transition: color 1s ease-in;
 }
+
+@mixin mobile {
+    @media screen and (max-width: 968px) {
+        @content;
+
+    }
+}

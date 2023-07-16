@@ -1,15 +1,18 @@
 @import "src/styles/modifier.scss";
 
+.asscroll {
+    counter-reset: section-title;
+}
+
 .title-decoration {
 
-
     position: relative;
-    padding: 400px 50px;
+    padding: 400px 0;
     border: 2px solid var(--color-title);
     border-width: 0 0 2px 0;
 
-    &:nth-of-type(1) {
-        counter-reset: section-title 1;
+    @include mobile {
+        padding: 150px 0;
     }
 
     &::after {
